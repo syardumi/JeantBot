@@ -8,6 +8,8 @@ const wss = new ws.WebSocketServer({ port: 8888 });
 let thisSocket
 
 wss.on('connection', function connection(socket) {
+  console.log('* web socket connected')
+  socket.send('{ "connected": true }')
   thisSocket = socket
 });
 
