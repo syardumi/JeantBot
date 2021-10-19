@@ -6,6 +6,9 @@ const config = require('./.env.js');
 webpush.setVapidDetails(config.vapid.subject, config.vapid.publicKey, config.vapid.privateKey);
 
 const SoundEffects = async (target, context, chatMsg, client, db) => {
+    const isVipOrModUser = (context['badges'] && context['badges']['broadcaster'] === '1') || (context['badges'] && context['badges']['vip'] === '1') || context['mod'] === true || context['username'] === 'thefinaledge'
+    if (!isVipOrModUser) return
+
     if (chatMsg.includes('!iamjeant')) {
         const files = fs.readdirSync(path.join(__filename, '../assets'));
         const file = files[Math.floor(Math.random() * files.length)];

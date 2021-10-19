@@ -26,7 +26,7 @@ open({
 
   app.post('/notifications/subscribe', async (req, res) => {
     const subscription = req.body
-  
+
     // save user to DB
     let result = await db.get('SELECT * FROM push_subscriptions WHERE endpoint = ?', subscription.endpoint)
     if (!result) {
@@ -35,7 +35,7 @@ open({
         subscription.endpoint, subscription.keys.p256dh, subscription.keys.auth
       )
     }
-  
+
     res.status(200).json({'success': true})
   });
 
@@ -69,7 +69,7 @@ open({
   // Create a client with our options
   const client = new tmi.client({
     options: {
-      debug: true
+      debug: config.debug
     },
     connection: {
         reconnect: true,
