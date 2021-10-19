@@ -9,9 +9,14 @@
   "author": "Steve Yardumian",
   "license": "MIT",
   "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "https": "1.0.0",
     "numeral": "2.0.6",
+    "sqlite": "4.0.23",
+    "sqlite3": "5.0.2",
     "tmi.js": "1.8.3",
-    "ws": "8.2.3"
+    "web-push": "3.4.5"
   },
   "devDependencies": {
     "jest": "27.1.0"
