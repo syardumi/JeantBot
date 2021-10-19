@@ -20,8 +20,8 @@ open({
   app.use(express.json())
 
   const httpsServer = https.createServer({
-    key: fs.readFileSync('/Users/steveyardumian/Downloads/push_jeantbot_site.key'), // fs.readFileSync('/home/syardumi/ssl/push_jeantbot_site.key'),
-    cert: fs.readFileSync('/Users/steveyardumian/Downloads/push_jeantbot_site.crt') // fs.readFileSync('/home/syardumi/ssl/push_jeantbot_site.crt'),
+    key: fs.readFileSync(config.httpsLocation.key),
+    cert: fs.readFileSync(config.httpsLocation.cert)
   }, app);
 
   app.post('/notifications/subscribe', async (req, res) => {
