@@ -5,9 +5,13 @@ const express = require('express');
 const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
+const addMilliseconds = require('date-fns/addMilliseconds')
 
 const SoundEffects = require('./soundEffects');
 const config = require('./.env.js');
+
+const COOLDOWN_IN_MS = process.argv && process.argv.length > 2 ? process.argv[2].split('=')[1] * 1000 : 30000
+let lastRunDateTimestamp
 
 open({
   filename: config.dbLocation,
@@ -57,6 +61,12 @@ open({
     // console.log(context)
 
     if (config.modules.soundEffects) {
+      if (lastRunDateTimestamp && Date.now() < addMilliseconds(new Date(lastRunDateTimestamp), COOLDOWN_IN_MS)) {
+        const timeLeft = (addMilliseconds(new Date(lastRunDateTimestamp), COOLDOWN_IN_MS) - Date.now()) / 1000
+        console.log(`tried command too soon; ${timeLeft} sec left`)
+        return
+      }
+      lastRunDateTimestamp = Date.now()
       await SoundEffects(target, context, chatMsg, client, db)
     }
   }
