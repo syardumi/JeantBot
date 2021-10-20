@@ -9,6 +9,8 @@ const fs = require('fs');
 const SoundEffects = require('./soundEffects');
 const config = require('./.env.js');
 
+// TODO: add kill switch
+
 open({
   filename: config.dbLocation,
   driver: sqlite3.cached.Database
