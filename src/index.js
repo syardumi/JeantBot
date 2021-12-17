@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 
 const SoundEffects = require('./soundEffects');
 const config = require('./.env.js');
@@ -40,6 +41,11 @@ open({
 
     res.status(200).json({'success': true})
   });
+
+  app.get('/audio/files', (req, res) => {
+    const files = fs.readdirSync(path.join(__filename, '../assets'));
+    res.status(200).json(files)
+  })
 
   httpsServer.listen(443, () => {
     console.log('HTTPS Server running on port 443');
